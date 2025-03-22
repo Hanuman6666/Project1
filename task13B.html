@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Info UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            margin: 5px;
+            padding: 8px;
+        }
+        button {
+            padding: 10px;
+            background-color: rgb(137, 232, 108);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(228, 237, 146);
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Your Information</h2>
+    <input type="text" id="studentName" placeholder="Enter Name">
+    <input type="number" id="studentAge" placeholder="Enter Age">
+    <input type="text" id="studentMajor" placeholder="Enter Major">
+    <input type="text" id="studentCourse" placeholder="Enter Course">
+    <button onclick="saveStudentInfo()">Save Info</button>
+    <button onclick="showStudentInfo()">Show Info</button>
+
+    <div id="result"></div>
+
+    <script>
+        let studentData = {};
+
+        function saveStudentInfo() {
+            studentData.name = document.getElementById("studentName").value;
+            studentData.age = document.getElementById("studentAge").value;
+            studentData.major = document.getElementById("studentMajor").value;
+            studentData.course = document.getElementById("studentCourse").value;
+            alert("Information Saved!");
+        }
+
+        function showStudentInfo() {
+            if (studentData.name) {
+                document.getElementById("result").innerHTML = 
+                    `Name: ${studentData.name} <br> Age: ${studentData.age} <br> Major: ${studentData.major} <br> Course: ${studentData.course}`;
+            } else {
+                document.getElementById("result").innerHTML = "No information available. Please enter data first.";
+            }
+        }
+    </script>
+</body>
+</html>

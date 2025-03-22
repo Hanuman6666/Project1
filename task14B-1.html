@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Within Range</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 150px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #randomResult {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Random Number Within a Range</h1>
+    <input type="number" id="lowerBound" placeholder="Enter Lower Bound">
+    <input type="number" id="upperBound" placeholder="Enter Upper Bound">
+    <br>
+    <button onclick="createRandomNumber()">Generate Random Number</button>
+    <p id="randomResult">Random number is: </p>
+
+    <script>
+        function createRandomNumber() {
+            let lower = parseInt(document.getElementById('lowerBound').value);
+            let upper = parseInt(document.getElementById('upperBound').value);
+
+            if (isNaN(lower) || isNaN(upper)) {
+                document.getElementById('randomResult').textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            if (lower > upper) {
+                document.getElementById('randomResult').textContent = "Lower Bound should be less than or equal to Upper Bound.";
+                return;
+            }
+
+            let randomNum = Math.floor(Math.random() * (upper - lower + 1)) + lower;
+
+            // Define an array of colors
+            const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#F5E21E', '#3D3D3D', '#F15BB5'];
+            // Randomly select a color from the array
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // Change the color of the random number result
+            document.getElementById('randomResult').textContent = "Random number is: " + randomNum;
+            document.getElementById('randomResult').style.color = randomColor;
+        }
+    </script>
+
+</body>
+</html>

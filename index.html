@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Project Gallery</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #ECECEC; /* Light Grey */
+        }
+
+        /* Header Styling */
+        #main-header {
+            width: 100%;
+            background-color: #150B4E; /* Deep Blue */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+            #main-header h1 {
+                font-size: 32px;
+                margin: 0;
+                font-weight: bold;
+            }
+
+        /* Layout Styling */
+        #layout {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 80px); /* Adjusted for header height */
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            width: 280px;
+            background-color: #150B4E; /* Deep Blue */
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+            #sidebar h2 {
+                font-size: 22px;
+                text-align: center;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+            }
+
+            #sidebar ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            #sidebar li {
+                margin-bottom: 10px;
+            }
+
+            #sidebar button {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                color: white;
+                background-color: rgba(255, 255, 255, 0.1);
+                border: 1px solid white;
+                border-radius: 5px;
+                text-align: left;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+                #sidebar button:hover {
+                    background-color: #574B90; /* Soft Purple for Hover */
+                    transform: scale(1.05);
+                }
+
+        /* Main Content Styling */
+        #main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            width: 95%;
+            height: 95%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            #layout {
+                flex-direction: column;
+            }
+
+            #sidebar {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                text-align: center;
+            }
+
+                #sidebar ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 10px;
+                }
+
+                #sidebar li {
+                    width: 48%;
+                }
+
+                #sidebar button {
+                    width: 100%;
+                }
+
+            #main-content {
+                padding: 10px;
+            }
+
+            iframe {
+                width: 100%;
+                height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <h1>Project Gallery</h1>
+    </header>
+
+    <!-- Layout -->
+    <div id="layout">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <h2>My Projects</h2>
+            <ul id="project-list"></ul>
+        </div>
+
+        <!-- Main Content -->
+        <div id="main-content">
+            <iframe id="content-frame" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // JSON Array of Objects
+        const projects = [
+            { title: "Task 1: Expectation Document", file: "task1.html" },
+            { title: "Task 2: Basic HTML Styling", file: "task2.html" },
+            { title: "Task 3: CSS Hover", file: "task3.html" },
+            { title: "Task 4: Welcome to JS", file: "task4.html" },
+            { title: "Task 5: Calculator with JS", file: "task5.html" },
+            { title: "Task 6: GitHub Integration", file: "task6.html" },
+            { title: "Task 7: Console Output", file: "task7.html" },
+            { title: "Task 8: String Operation", file: "task8.html" },
+            { title: "Task 9: Conditions", file: "task9.html" },
+            { title: "Task 10: Call-Stack with Array", file: "task10.html" },
+            { title: "Task 11: Star with Loops", file: "task11.html" },
+            { title: "Task 12-A: Class Work", file: "task12-A.html" },
+            { title: "Task 12-B: Class Work", file: "task12-B.html" },
+            { title: "Task 13-A: Class Work - Objects", file: "task13A.html" },
+            { title: "Task 13-B: Class Work - Objects", file: "task13B.html" },
+            { title: "Task 14: Class Work - Objects 2", file: "task14.html" },
+            { title: "Task 14b-1: Class Work - Functions", file: "task14B-1.html" },
+            { title: "Task 14b-2: Class Work - Functions", file: "task14B-2.html" },
+            { title: "Task 15-A: Class Work - Class & Bootstrap", file: "task15A.html" },
+            { title: "Task 15-B: Class Work - Class & Bootstrap", file: "task15B.html" },
+            { title: "Tasj16Task 16: Class Work - JSON", file: "task16.html" }
+        ];
+
+        const projectList = document.getElementById("project-list");
+        const contentFrame = document.getElementById("content-frame");
+
+        // Dynamically Generate Sidebar Buttons
+        projects.forEach((project) => {
+            const listItem = document.createElement("li");
+            const button = document.createElement("button");
+            button.textContent = project.title;
+            button.addEventListener("click", () => {
+                contentFrame.src = project.file; // Load corresponding file in iframe
+            });
+            listItem.appendChild(button);
+            projectList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>

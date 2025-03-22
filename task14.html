@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Update Information</h2>
+
+        <input type="text" id="studentName" placeholder="Enter name">
+        <input type="number" id="studentAge" placeholder="Enter age"><br>
+        <input type="text" id="studentProfession" placeholder="Enter profession">
+        <input type="text" id="studentHobby" placeholder="Enter hobby"><br><br>
+
+        <button class="btn-green" onclick="addStudentInfo()">Insert Info</button>
+        <button class="btn-red" onclick="clearForm()">Clear Inputs</button>
+        <button class="btn-blue" onclick="displayAllStudents()">Show All</button>
+        <button class="btn-orange" onclick="clearList()">Clear Display</button>
+
+        <h3>Search Records:</h3>
+        <input type="text" id="searchInput" placeholder="Search by Name or Age">
+        <button class="btn-green" onclick="searchStudentInfo()">Search</button>
+        <button class="btn-red" onclick="resetSearch()">Clear Search</button>
+
+        <h3>Records:</h3>
+        <ul id="studentRecords"></ul>
+    </div>
+
+    <script>
+        let students = [];
+
+        class Student {
+            constructor(name, age, profession, hobby) {
+                this.name = name || "N/A";
+                this.age = age || "N/A";
+                this.profession = profession || "N/A";
+                this.hobby = hobby || "N/A";
+            }
+
+            describe() {
+                return `${this.name}, Age: ${this.age}, Profession: ${this.profession}, Hobby: ${this.hobby}`;
+            }
+        }
+
+        function addStudentInfo() {
+            let student = new Student(
+                document.getElementById("studentName").value.trim(),
+                document.getElementById("studentAge").value.trim(),
+                document.getElementById("studentProfession").value.trim(),
+                document.getElementById("studentHobby").value.trim()
+            );
+
+            students.push(student);
+            alert("Student information added successfully!");
+            clearForm();
+        }
+
+        function displayAllStudents() {
+            let output = students.length
+                ? students.map((student, index) => `<li><strong>Student ${index + 1}:</strong> ${student.describe()}</li>`).join('')
+                : "<li>No records found.</li>";
+
+            document.getElementById("studentRecords").innerHTML = output;
+        }
+
+        function searchStudentInfo() {
+            let query = document.getElementById("searchInput").value.toLowerCase().trim();
+
+            if (!query) {
+                alert("Please enter a name or age to search.");
+                return;
+            }
+
+            let filteredResults = students.filter(student =>
+                student.name.toLowerCase().includes(query) || student.age.includes(query)
+            );
+
+            let output = filteredResults.length
+                ? filteredResults.map((student, index) => `<li><strong>Result ${index + 1}:</strong> ${student.describe()}</li>`).join('')
+                : "<li>No matching records found.</li>";
+
+            document.getElementById("studentRecords").innerHTML = output;
+        }
+
+        function clearForm() {
+            document.getElementById("studentName").value = "";
+            document.getElementById("studentAge").value = "";
+            document.getElementById("studentProfession").value = "";
+            document.getElementById("studentHobby").value = "";
+        }
+
+        function clearList() {
+            document.getElementById("studentRecords").innerHTML = "";
+        }
+
+        function resetSearch() {
+            document.getElementById("searchInput").value = "";
+            displayAllStudents();
+        }
+    </script>
+
+</body>
+</html>

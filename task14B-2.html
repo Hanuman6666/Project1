@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div id="mainContainer">
+        <input type="text" placeholder="Enter start number" id="startNumber">
+        <input type="text" placeholder="Enter end number" id="endNumber">
+        <button id="generateButton" onclick="generateRandomNumber();">Generate Random Number</button><br><br>
+        <label>Random Number: </label>
+        <span id="randomOutput"></span>
+    </div>
+
+    <script>
+        function generateRandomNumber() {
+            // Generate a random number between two numbers
+            let startNum = parseInt(document.getElementById("startNumber").value);
+            let endNum = parseInt(document.getElementById("endNumber").value);
+
+            if (endNum <= startNum) {
+                alert("End number must be greater than start number.");
+                return;
+            }
+
+            let randomNum = Math.floor(Math.random() * (endNum - startNum + 1)) + startNum;
+            document.getElementById("randomOutput").textContent = randomNum;
+        }
+
+        function hideContainer() {
+            document.getElementById("mainContainer").style.display = 'none';
+        }
+
+        function showContainer() {
+            document.getElementById("mainContainer").style.display = 'block';
+        }
+
+        setTimeout(hideContainer, 5000);
+        setTimeout(showContainer, 10000); 
+    </script>
+</body>
+</html>

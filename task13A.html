@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            button {
+                background-color: rgb(82, 82, 182);
+                color: white;
+                padding: 10px;
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>JavaScript Object</h1>
+        <input type="text" placeholder="Enter student Name" id="studentNameInput">
+        <input type="text" placeholder="Enter student Id" id="studentIdInput">
+        <input type="text" placeholder="Enter Department Name" id="studentDeptInput">
+        <button onclick="addStudentInfo();">Add Student Info</button>
+        <button onclick="displayLatestStudentInfo();" id="displayButton">Display Latest Info</button>
+        <button onclick="displayAllStudentsInfo();">Show All Students Info</button>
+       
+        <div id="latestStudentInfoContainer"></div>
+        <div id="allStudentsInfoContainer"></div>
+       
+        <script>
+            let studentsArray = [];
+
+            function addStudentInfo() {
+                let name = document.getElementById("studentNameInput").value;
+                let id = document.getElementById("studentIdInput").value;
+                let dept = document.getElementById("studentDeptInput").value;
+               
+                let studentObject = {
+                    name: name,
+                    studentId: id,
+                    department: dept,
+                    greet: function() { return "Hello Sir, These are my details"; }
+                };
+
+                studentsArray.push(studentObject);
+                alert("Student information has been added successfully!");
+            }
+
+            function displayLatestStudentInfo() {
+                if (studentsArray.length > 0) {
+                    const latestStudent = studentsArray[studentsArray.length - 1];
+                    document.getElementById("latestStudentInfoContainer").innerHTML = `
+                        Name: ${latestStudent.name} <br>
+                        Student ID: ${latestStudent.studentId} <br>
+                        Department: ${latestStudent.department} <br><br>
+                        ${latestStudent.greet()}
+                    `;
+                } else {
+                    document.getElementById("latestStudentInfoContainer").innerHTML = "Please add student information first.";
+                }
+            }
+
+            function displayAllStudentsInfo() {
+                let allDataHtml = '';
+                studentsArray.forEach((student, index) => {
+                    allDataHtml += `
+                        <div>
+                            <h3>Student ${index + 1} Details</h3>
+                            Name: ${student.name} <br>
+                            Student ID: ${student.studentId} <br>
+                            Department: ${student.department} <br><br>
+                        </div>
+                    `;
+                });
+
+                document.getElementById("allStudentsInfoContainer").innerHTML = allDataHtml;
+            }
+        </script>
+    </body>
+</html>

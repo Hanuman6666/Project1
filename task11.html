@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <input id="user_inp" type="number" placeholder="Enter a positive number." onkeyup="generate_pattern();">
+    <div id="demo_div"></div>
+
+    <script>
+        function generate_pattern() {
+            let text = "";
+            let n = parseFloat(document.getElementById("user_inp").value);
+            
+            for (let i = 0; i <= n; i++) {
+                for (let j = 0; j < i; j++) {
+                    text += "* ";
+                }
+                text += "<br>";
+            }
+
+            document.getElementById("demo_div").innerHTML = text;
+        }
+    </script>
+</body>
+</html>

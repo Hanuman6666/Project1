@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+</head>
+
+<script>
+    let arr1 = [];
+
+    function task(action) {
+        let user_input = document.getElementById("col1").value;
+        let res1 = "";
+
+        if (action === 'add') {
+            arr1.push(user_input);
+            res1 = arr1.join(", ");
+        } else if (action === 'undo') {
+            arr1.pop();
+            res1 = arr1.join(", ");
+        }
+
+        document.getElementById("result").innerHTML = "Process Line is: " + res1;
+    }
+</script>
+<body>
+    <h2>Call Stack</h2>
+    <input type="text" id="col1" placeholder="Enter Task Name">
+    <button id="add" onclick="task('add')">ADD Task</button>
+    <button id="undo" onclick="task('undo')">Undo Task</button>
+    <h3 id="result"> </h3>  
+</body>
+</html>
